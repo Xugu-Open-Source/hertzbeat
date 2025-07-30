@@ -562,12 +562,31 @@ public class XuguPlatform extends DatabasePlatform {
 
     @Override
     protected DataReadQuery getTableExistsQuery(final TableDefinition table) {
+        String tableName = table.getFullName();
+        if (isQuoted(table.getFullName())){
+            tableName = unquote(tableName);
+        }else {
+            tableName = tableName.toUpperCase();
+        }
         final DataReadQuery query = new DataReadQuery(
-                "SELECT TABLE_NAME FROM ALL_TABLES WHERE TABLE_NAME = '" + table.getFullName() + "'");
+                "SELECT TABLE_NAME FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'");
         query.setMaxRows(1);
         return query;
     }
+    public static String unquote(String name) {
 
+        return isQuoted(name)? name.substring( 1, name.length() - 1 ) : name;
+    }
+    public static boolean isQuoted(final String name) {
+        if ( name == null || name.isEmpty() ) {
+            return false;
+        }
+
+        final char first = name.charAt( 0 );
+        final char last = name.charAt( name.length() - 1 );
+
+        return ( ( first == last ) && ( first == '`' || first == '"' ) );
+    }
     @Override
     public boolean checkTableExists(final DatabaseSessionImpl session,
                                     final TableDefinition table, final boolean suppressLogging) {
@@ -579,6 +598,8 @@ public class XuguPlatform extends DatabasePlatform {
             return false;
         }
     }
+
+
 
 
     @Override

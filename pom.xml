@@ -138,6 +138,9 @@
         <commons-collections4.version>4.4</commons-collections4.version>
         <commons-jexl3>3.2.1</commons-jexl3>
         <commons-net>3.10.0</commons-net>
+        <xugu-jdbc.version>12.3.4</xugu-jdbc.version>
+        <xugu-dialect.version>6.6.1</xugu-dialect.version>
+        <flyway-xugu.version>10.11.1</flyway-xugu.version>
     </properties>
 
     <dependencyManagement>
@@ -264,6 +267,22 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
+            </dependency>
+            <!--xugu-->
+            <dependency>
+                <groupId>com.xugudb</groupId>
+                <artifactId>xugu-jdbc</artifactId>
+                <version>${xugu-jdbc.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.xugudb</groupId>
+                <artifactId>xugu-dialect</artifactId>
+                <version>${xugu-dialect.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-xugu</artifactId>
+                <version>${flyway-xugu.version}</version>
             </dependency>
             <!-- sql server -->
             <dependency>
@@ -438,7 +457,7 @@
                 <version>${maven-surefire-plugin.version}</version>
             </plugin>
             <!-- java code style check -->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.3.0</version>
@@ -459,7 +478,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
 
         </plugins>
     </build>

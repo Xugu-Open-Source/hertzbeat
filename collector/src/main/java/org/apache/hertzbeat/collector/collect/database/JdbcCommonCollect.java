@@ -314,6 +314,9 @@ public class JdbcCommonCollect extends AbstractCollect {
                     + "/" + (jdbcProtocol.getDatabase() == null ? "" : jdbcProtocol.getDatabase());
             case "dm" ->
                     "jdbc:dm://" + jdbcProtocol.getHost() + ":" + jdbcProtocol.getPort();
+            case "xugu" ->
+                    "jdbc:xugu://" + jdbcProtocol.getHost() + ":" + jdbcProtocol.getPort()
+                    + "/" + (jdbcProtocol.getDatabase() == null ? "" : jdbcProtocol.getDatabase());
             default -> throw new IllegalArgumentException("Not support database platform: " + jdbcProtocol.getPlatform());
         };
     }

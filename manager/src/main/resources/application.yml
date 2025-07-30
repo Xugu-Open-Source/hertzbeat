@@ -60,30 +60,49 @@ sureness:
              dKhaX0csgOCTlCxq20yhmUea6H6JIpSE2Rwp'
 
 ---
+#spring:
+#  config:
+#    activate:
+#      on-profile: prod
+#
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: root
+#    password: root
+#    url: jdbc:mysql://localhost:3306/hertzbeat?characterEncoding=utf8&connectTimeout=1000&socketTimeout=3000&autoReconnect=true&useUnicode=true&useSSL=false&serverTimezone=UTC
+#    hikari:
+#      max-lifetime: 120000
+#
+#  jpa:
+#    show-sql: false
+#    database-platform: org.eclipse.persistence.platform.database.MySQLPlatform
+#    database: mysql
+#    properties:
+#      eclipselink:
+#        logging:
+#          level: SEVERE
+
 spring:
-  config:
-    activate:
-      on-profile: prod
+
 
   datasource:
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: 123456
-    url: jdbc:h2:./data/hertzbeat;MODE=MYSQL
+    driver-class-name: com.xugu.cloudjdbc.Driver
+    username: usr_test1
+    password: 123QWEasd!@
+    url: jdbc:xugu://localhost:5138/TEST?keyword_filter=TIMESTAMP,TIME
     hikari:
       max-lifetime: 120000
 
   jpa:
     show-sql: false
-    database-platform: org.eclipse.persistence.platform.database.MySQLPlatform
-    database: h2
+    database-platform: org.apache.hertzbeat.manager.config.XuguPlatform
     properties:
       eclipselink:
         logging:
           level: SEVERE
           
   flyway:
-    enabled: true
+    enabled: false
     clean-disabled: true
     baseline-on-migrate: true
     baseline-version: 1
