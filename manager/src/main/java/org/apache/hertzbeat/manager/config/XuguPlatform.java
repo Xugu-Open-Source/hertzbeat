@@ -568,8 +568,24 @@ public class XuguPlatform extends DatabasePlatform {
         }else {
             tableName = tableName.toUpperCase();
         }
-        final DataReadQuery query = new DataReadQuery(
-                "SELECT TABLE_NAME FROM USER_TABLES WHERE TABLE_NAME = '" + tableName + "'");
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("SELECT\n" +
+                "\tt.table_name\n" +
+                "FROM\n" +
+                "\tall_tables t,\n" +
+                "\tall_schemas s,\n" +
+                "\tall_databases d\n" +
+                "WHERE\n" +
+                "\tt.schema_id = s.schema_id\n" +
+                "\tand s.db_id = d.db_id\n" +
+                "\tand d.db_id =(\n" +
+                "\tSELECT CURRENT_DB_ID())");
+        stringBuffer.append("\tand t.table_name = '");
+        stringBuffer.append(tableName);
+        stringBuffer.append("'");
+        stringBuffer.append("\tand s.schema_name = (\n" +
+                "\tSELECT CURRENT_SCHEMA())");
+        final DataReadQuery query = new DataReadQuery(stringBuffer.toString());
         query.setMaxRows(1);
         return query;
     }
